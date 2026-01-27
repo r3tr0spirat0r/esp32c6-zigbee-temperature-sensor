@@ -4,6 +4,21 @@
 
 A lightweight Zigbee temperature sensor implementation for **ESP32-C6** using **ESP-IDF v5.2**. This project features a DS18B20 probe connected via OneWire (RMT) and reports data to a Zigbee Coordinator (like Zigbee2MQTT or Home Assistant).
 
+## Prerequisites
+
+To build this project, you need the **ESP-IDF** (Espressif IoT Development Framework) installed on your system.
+
+1. **Install ESP-IDF v5.2**:
+   - Follow the [Official Installation Guide](https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c6/get-started/index.html).
+   - Ensure you use **version 5.2** (higher versions might require minor code adjustments).
+   
+2. **ESP-IDF Component Manager**:
+   - This project uses managed components (`ds18b20`, `onewire_bus`, `esp-zigbee-lib`). 
+   - They are automatically downloaded by the IDF Component Manager during the first build based on the `idf_component.yml` file.
+
+3. **Python & Dependencies**:
+   - Ensure you have Python 3.10+ and the necessary build tools (`ninja`, `cmake`).
+  
 ## Features
 - **Zigbee 3.0** support (End Device role).
 - **DS18B20** integration using the modern `onewire_bus` RMT driver.
