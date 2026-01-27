@@ -43,3 +43,10 @@ During development, we solved two critical issues:
    ```bash
    idf.py build
    idf.py flash monitor
+
+## Outcome
+via  ```bash
+   idf.py monitor
+
+<img width="1762" height="1330" alt="image" src="https://github.com/user-attachments/assets/f8c773a2-49e1-48c5-bfb2-630912ceed67" />
+
