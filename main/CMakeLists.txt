@@ -12,6 +12,7 @@ idf_component_register(
         "${managed_comps}/espressif__onewire_bus/include"
     REQUIRES 
         nvs_flash 
+        app_update 
         espressif__esp-zigbee-lib 
         espressif__esp-zboss-lib 
         espressif__ds18b20 
