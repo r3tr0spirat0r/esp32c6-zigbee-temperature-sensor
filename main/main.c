@@ -117,9 +117,18 @@ void esp_zb_app_signal_handler(esp_zb_app_signal_t *signal_struct) {
             break;
 
         case ESP_ZB_BDB_SIGNAL_DEVICE_REBOOT:
-            ESP_LOGI(TAG, "🔄 Restart urządzenia");
+        ESP_LOGI(TAG, "🔄 Restart urządzenia");
+        if (err_status == ESP_OK) {
+            // Urządzenie ma zapisaną sieć — nie rób steeringu ponownie
+            esp_zb_ieee_addr_t extended_pan_id;
+            esp_zb_get_extended_pan_id(extended_pan_id);
+            ESP_LOGI(TAG, "✅ Przywrócono połączenie z siecią Zigbee!");
+            device_joined = true;
+        } else {
+            // Brak zapisanej sieci — szukaj
             esp_zb_bdb_start_top_level_commissioning(ESP_ZB_BDB_MODE_NETWORK_STEERING);
-            break;
+        }
+        break;
 
         case ESP_ZB_BDB_SIGNAL_STEERING:
             ESP_LOGI(TAG, "🎯 STEERING RESULT: status=%d (%s)", err_status,
@@ -243,9 +252,11 @@ void app_main(void) {
     esp_zb_cfg_t zb_nwk_cfg = {
         .esp_zb_role = ESP_ZB_DEVICE_TYPE_ROUTER,
         .install_code_policy = false,
-        .nwk_cfg.zed_cfg = {
-            .ed_timeout = 0,
-            .keep_alive = 0,
+        .nwk_cfg = {
+            .zed_cfg = {
+                .ed_timeout = 0,
+                .keep_alive = 0,
+            },
         },
     };
     esp_zb_init(&zb_nwk_cfg);
